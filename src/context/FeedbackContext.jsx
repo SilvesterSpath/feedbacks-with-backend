@@ -32,7 +32,7 @@ export const FeedbackProvider = ({children}) => {
 
   // Get feedbacks
   const getFeedbacks = async ()=>{
-    const feedbacks = await axios.get('https://spathcors.herokuapp.com/http://localhost:5000/feedback')
+    const feedbacks = await axios.get('http://localhost:5000/feedback')
     console.log(feedbacks.data)
     setFeedbacks(feedbacks.data)
   }
