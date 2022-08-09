@@ -17,7 +17,7 @@ export const FeedbackProvider = ({children}) => {
 
   // Get feedbacks
   const getFeedbacks = async ()=> {
-    const feedbacks = await axios.get('http://localhost:5000/feedback?_sort=id&_order=asc')
+    const feedbacks = await axios.get('/feedback?_sort=id&_order=asc')
     
     setFeedbacks(feedbacks.data)
     setIsLoading(false)
@@ -26,7 +26,7 @@ export const FeedbackProvider = ({children}) => {
   // Delete feedback
   const deleteFeedback = async (id) => {
     if (window.confirm('Are you sure you want to delete')) {
-      await axios.delete(`http://localhost:5000/feedback/${id}`)
+      await axios.delete(`/feedback/${id}`)
       setFeedbacks(feedbacks.filter((item) => item.id !== id));
     }
   };
@@ -41,7 +41,7 @@ export const FeedbackProvider = ({children}) => {
 
   // Add a feedback
   const addFeedback = async(newFeedback) => {
-    await axios.post('http://localhost:5000/feedback', newFeedback)    
+    await axios.post('/feedback', newFeedback)    
     setFeedbacks([newFeedback, ...feedbacks]);    
   };
 
