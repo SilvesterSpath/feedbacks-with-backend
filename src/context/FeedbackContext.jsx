@@ -4,23 +4,8 @@ import axios from 'axios'
 const FeedbackContext = createContext()
 
 export const FeedbackProvider = ({children}) => {
-  const [feedbacks, setFeedbacks] = useState([{
-    id: 1,
-    text: 'This item is from context',
-    rating: 7
-  },
-  {
-    id: 2,
-    rating: 9,
-    text: 'Feedback item 2 is from context',
-  },
-  {
-    id: 3,
-    rating: 5,
-    text: 'Feedback item 3 is from context',
-  },
-])
-
+  const [isLoading, setIsLoading] = useState(true)
+  const [feedbacks, setFeedbacks] = useState([])
   const [feedbackEditState, setFeedbackEditState] = useState({
     item: {},
     edit: false
@@ -31,10 +16,11 @@ export const FeedbackProvider = ({children}) => {
   }, [])
 
   // Get feedbacks
-  const getFeedbacks = async ()=>{
-    const feedbacks = await axios.get('http://localhost:5000/feedback')
-    console.log(feedbacks.data)
+  const getFeedbacks = async ()=> {
+    const feedbacks = await axios.get('http://localhost:5000/feedback?_sort=id&_order=asc')
+    
     setFeedbacks(feedbacks.data)
+    setIsLoading(false)
   }
 
   // Delete feedback
@@ -70,7 +56,8 @@ export const FeedbackProvider = ({children}) => {
     addFeedback,
     editFeedback,
     feedbackEditState,
-    updateFeedback
+    updateFeedback,
+    isLoading
   }}>
     {children}
   </FeedbackContext.Provider>

@@ -5,7 +5,7 @@ import FeedbackContext from "../context/FeedbackContext"
 import { v4 as uuidv4 } from 'uuid';
 
 function FeedbackList() {
-  const {feedbacks} = useContext(FeedbackContext)
+  const {feedbacks, isLoading} = useContext(FeedbackContext)
   
 
   if(!feedbacks || feedbacks.length === 0){
@@ -19,6 +19,7 @@ function FeedbackList() {
     ))}
     </div>
   ) */
+
   return (
     <div className="feedback-list">  
     <AnimatePresence>
