@@ -6,7 +6,7 @@ import FeedbackContext from "../context/FeedbackContext"
 
 function FeedbackItem({item}) {
   const {deleteFeedback, editFeedback} = useContext(FeedbackContext)
-
+  
   return (    
      <Card >
       <div className="num-display">{item.rating}</div>
@@ -21,12 +21,9 @@ function FeedbackItem({item}) {
   )
 }
 
-Card.defaultProps = {
-  reverse: false
-}
 
-Card.propTypes = {
-  item: PropTypes.object
+FeedbackItem.propTypes = {
+  item: PropTypes.object.isRequired
 }
 
 export default FeedbackItem

@@ -17,7 +17,7 @@ export const FeedbackProvider = ({children}) => {
 
   // Get feedbacks
   const getFeedbacks = async ()=> {
-    const feedbacks = await axios.get('/feedback?_sort=id&_order=asc')
+    const feedbacks = await axios.get('/feedback?_sort=id&_order=desc')
     
     setFeedbacks(feedbacks.data)
     setIsLoading(false)
@@ -41,13 +41,16 @@ export const FeedbackProvider = ({children}) => {
 
   // Add a feedback
   const addFeedback = async(newFeedback) => {
-    await axios.post('/feedback', newFeedback)    
-    setFeedbacks([newFeedback, ...feedbacks]);    
+    const response = await axios.post('/feedback', newFeedback)
+    const data = await response.data    
+    setFeedbacks([data, ...feedbacks]);    
   };
 
   // Update feedback item
-  const updateFeedback = (id, feedbackItem)=>{
-    setFeedbacks(feedbacks.map((item)=> item.id === id ? {...item, ...feedbackItem}: item))
+  const updateFeedback = async (id, feedbackItem)=>{
+    const response = await axios.put(`/feedback/${id}`, feedbackItem)
+    const data = response.data
+    setFeedbacks(feedbacks.map((item)=> item.id === id ? {...item, ...data}: item))
   }
  
   return <FeedbackContext.Provider value={{
